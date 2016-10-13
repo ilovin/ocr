@@ -1,10 +1,10 @@
-#include "sheet.h"
+ï»¿#include "sheet.h"
 
 vector<vector<Sheet>> creatSheet()
 {
 	Sheet Single;
 	vector<Sheet> temBill;
-	vector<vector<Sheet> > Bill;
+	vector<vector<Sheet>> Bill;
 	//int nItem = 21;// 21 tatol items
 	 
 	string Item;
@@ -16,7 +16,7 @@ vector<vector<Sheet>> creatSheet()
 	//initialize the detail items
 	Cont = "Empty"; 
 
-	Item = ("¿¿¿¿/¿¿¿¿/¿¿¿¿");
+	Item = u8"æœºæ‰“ä»£ç /æœºæ‰“å·ç /æœºå™¨ç¼–å·";
 	row = 0;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,ENG); 
@@ -28,7 +28,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "¿¿¿";
+	Item = u8"ç¨æ§ç ";
 	row = 0;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -43,7 +43,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill); // the first row
 	temBill.clear();
 
-	Item = "¿¿¿/¿¿¿¿";
+	Item = "è´­ä¹°æ–¹åç§°åŠèº«ä»½è¯å·ç /ç»„ç»‡æœºæ„ä»£ç ";
 	row = 1;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,CHI_SIM);
@@ -70,7 +70,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill); //the second row
 	temBill.clear();
 
-	Item = "¿¿¿¿";
+	Item = "è½¦è¾†ç±»å‹";
 	row = 2;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,CHI_SIM);
@@ -82,7 +82,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "¿¿¿¿";
+	Item = "å‚ç‰Œå‹å·";
 	row = 2;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,ENG_CHI_SIM);
@@ -94,7 +94,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "¿¿";
+	Item = "äº§åœ°";
 	row = 2; 
 	col = 2;
 	Single.setSheet(Item, Cont, row, col,CHI_SIM);
@@ -109,7 +109,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill);  //the third row
 	temBill.clear();
 
-	Item = "¿¿¿¿";
+	Item = "åˆæ ¼è¯å·";
 	row = 3;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -136,7 +136,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill);  //the 4th row
 	temBill.clear();
 
-	Item = "¿¿¿¿";
+	Item = "å‘åŠ¨æœºå·ç ";
 	row = 4;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -148,7 +148,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "¿¿¿¿¿¿/¿¿¿¿";
+	Item = "è½¦è¾†è¯†åˆ«ä»£å·/è½¦æ¶å·ç ";
 	row = 4;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -163,7 +163,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill);  //the 5th row
 	temBill.clear();
 
-	Item = "¼ÛË°ºÏ¼Æ";
+	Item = "ä»·ç¨åˆè®¡";
 	row = 5;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,CHI_TRA);
@@ -175,7 +175,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "¼ÛË°Ğ¡Ğ´";
+	Item = "ä»·ç¨å°å†™";
 	row = 5;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -190,7 +190,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill); //the 6th row
 	temBill.clear();
 
-	Item = "Ïú»õµ¥Î»Ãû³Æ";
+	Item = "é”€è´§å•ä½åç§°";
 	row = 6;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,CHI_SIM);
@@ -205,7 +205,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill); //the 7th row
 	temBill.clear();
 
-	Item = "ÄÉË°ÈËÊ¶±ğºÅ";
+	Item = "çº³ç¨äººè¯†åˆ«å·";
 	row = 7;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -217,7 +217,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "ÕËºÅ";
+	Item = "è´¦å·";
 	row = 7;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -232,7 +232,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill);  //the 8th row
 	temBill.clear();
 
-	Item = "µØÖ·";
+	Item = "åœ°å€";
 	row = 8;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,CHI_SIM);
@@ -244,7 +244,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "¿ª»§ÒøĞĞ";
+	Item = "å¼€æˆ·é“¶è¡Œ";
 	row = 8;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,CHI_SIM);
@@ -275,7 +275,7 @@ vector<vector<Sheet>> creatSheet()
 	temBill.clear();
 
 
-	Item = "²»º¬Ë°¼Û";
+	Item = "ä¸å«ç¨ä»·";
 	row = 10;
 	col = 0;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -299,7 +299,7 @@ vector<vector<Sheet>> creatSheet()
 	Single.setWidHeig(wid, hei);
 	temBill.push_back(Single);
 
-	Item = "ÏŞ³ËÈËÊı";
+	Item = "é™ä¹˜äººæ•°";
 	row = 10;
 	col = 2;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -314,6 +314,7 @@ vector<vector<Sheet>> creatSheet()
 	Bill.push_back(temBill);  //the 11th row
 	temBill.clear();
 
+	// Item = "å¼€ç¥¨æ—¥æœŸ";
 	Item = "Empty";
 	row = 11;
 	col = 0;
@@ -330,6 +331,7 @@ vector<vector<Sheet>> creatSheet()
 	//temBill.clear();
 
 	Item = "Empty";
+	// Item = "å‘ç¥¨ä»£ç ";
 	row = 11;
 	col = 1;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -342,6 +344,7 @@ vector<vector<Sheet>> creatSheet()
 	temBill.push_back(Single);
 
 	Item = "Empty";
+	// Item = "å‘ç¥¨å·ç ";
 	row = 11;
 	col = 2;
 	Single.setSheet(Item, Cont, row, col,ENG);
@@ -393,7 +396,7 @@ void SheetImage(vector<vector<Sheet>>& Bill,vector<cv::Point> Box)
 	}
 
 	//the two head squares
-	//"¿ªÆ±ÈÕÆÚ"
+	//"å¼€ç¥¨æ—¥æœŸ"
 	//item
 	temHei = (int)(Bill[numRow][0].getHeight()*heiBox+0.5);
 	pointLU = Box[LEFT_UP] - cv::Point(0, temHei);
@@ -403,7 +406,7 @@ void SheetImage(vector<vector<Sheet>>& Bill,vector<cv::Point> Box)
 	pointLU = pointLU + cv::Point(temWid, 0);  //the left-up point of "content"
 	Bill[numRow][0].creatSquare(pointLU, widBox, heiBox, boxCONTENT);
 
-	//"·¢Æ±´úÂë"
+	//"å‘ç¥¨ä»£ç "
 	//item
 	temHei = (int)((Bill[numRow][1].getHeight() + Bill[numRow][2].getHeight())*heiBox + 0.5);
 	temWid = (int)((Bill[0][0].getWidth(boxALL)+ Bill[0][1].getWidth(boxALL)-0.5*Bill[0][1].getWidth(boxCONTENT))*widBox + 0.5);
@@ -414,7 +417,7 @@ void SheetImage(vector<vector<Sheet>>& Bill,vector<cv::Point> Box)
 	pointLU = pointLU + cv::Point(temWid, 0);  //the left-up point of "content"
 	Bill[numRow][1].creatSquare(pointLU, widBox, heiBox, boxCONTENT);
 
-	//"·¢Æ±ºÅÂë"
+	//"å‘ç¥¨å·ç "
 	//item
 	temWid = (int)((Bill[0][0].getWidth(boxALL) + Bill[0][1].getWidth(boxALL) - 0.5*Bill[0][1].getWidth(boxCONTENT))*widBox + 0.5);
 	temHei = (int)(Bill[numRow][2].getHeight()*heiBox);
@@ -633,66 +636,66 @@ and put them into "tesseract.exe" to be recognised
 Bill: the bill correspond to the input image
 image: the image which has been done perspective transform
 */
-void RecognizeContent(const cv::Mat& image, vector<vector<Sheet>>& Bill)
-{
-	//vector<cv::Rect> billRects;
-	cv::Rect rect;
-	int numRow = (int)Bill.size()-1,// without "¿ªÆ±ÈÕÆÚ£¬·¢Æ±´úÂë£¬·¢Æ±ºÅÂë"
-		numCol;
-	cv::Mat tempImage;
-	char ImagePath[50];
-	char TessParam[300];
-	char TxtPath[50];
-	wstring TxtFile;
+// void RecognizeContent(const cv::Mat& image, vector<vector<Sheet>>& Bill)
+// {
+	// //vector<cv::Rect> billRects;
+	// cv::Rect rect;
+	// int numRow = (int)Bill.size()-1,// without "å¼€ç¥¨æ—¥æœŸï¼Œå‘ç¥¨ä»£ç ï¼Œå‘ç¥¨å·ç "
+		// numCol;
+	// cv::Mat tempImage;
+	// char ImagePath[50];
+	// char TessParam[300];
+	// char TxtPath[50];
+	// wstring TxtFile;
 	
-	//int outflag = 0;
-	for (int bi = 0; bi < numRow; bi++)
-	{
-		numCol = (int)Bill[bi].size();
-		for (int bj = 0; bj < numCol; bj++)
-		{
-			if (!Bill[bi][bj].Empty())// the content is required
-			{
-				// move the left-up point a little in order to delete the line
-				rect.x = Bill[bi][bj].getContSquare(LEFT_UP).x + (int)(0.07*Bill[bi][bj].Height);
-				rect.y = Bill[bi][bj].getContSquare(LEFT_UP).y + (int)(0.07*Bill[bi][bj].Height);
-				rect.width = Bill[bi][bj].Width[boxCONTENT] - (int)(0.1*Bill[bi][bj].Height);
-				rect.height = Bill[bi][bj].Height - (int)(0.2*Bill[bi][bj].Height);
-				//billRects.push_back(rect);
-				//r: row, c: col
-				/* get the parameters of OCR*/
-				sprintf(ImagePath, ".\\tempJpg\\r%dc%d.jpg  ", bi, bj);
-				string strIP(ImagePath);				
-				sprintf(TxtPath, ".\\tempTxt\\r%dc%d", bi, bj);
-				string strTTP(TxtPath);
-				strIP = strIP + strTTP;  //union
-				string tempSP;// = "-l eng --tessdata-dir  .\\tesseract\\tessdata";
-				// eng/chi_sim/chi_tra
-				if (Bill[bi][bj].getCharacter() == ENG)
-				{
-					tempSP = " -l eng --tessdata-dir  .\\tesseract\\tessdata";
-				}
-				else if (Bill[bi][bj].getCharacter() == CHI_SIM)
-				{
-					tempSP = " -l chi_sim --tessdata-dir  .\\tesseract\\tessdata";
-				}
-				else if (Bill[bi][bj].getCharacter() == CHI_TRA)
-				{
-					tempSP = " -l chi_tra --tessdata-dir  .\\tesseract\\tessdata";
-				}
-				else if (Bill[bi][bj].getCharacter() == ENG_CHI_SIM)
-				{
-					tempSP = " -l eng+chi_sim --tessdata-dir  .\\tesseract\\tessdata";
-				}				
-				string strTP = strIP + tempSP;//txt path
+	// //int outflag = 0;
+	// for (int bi = 0; bi < numRow; bi++)
+	// {
+		// numCol = (int)Bill[bi].size();
+		// for (int bj = 0; bj < numCol; bj++)
+		// {
+			// if (!Bill[bi][bj].Empty())// the content is required
+			// {
+				// // move the left-up point a little in order to delete the line
+				// rect.x = Bill[bi][bj].getContSquare(LEFT_UP).x + (int)(0.07*Bill[bi][bj].Height);
+				// rect.y = Bill[bi][bj].getContSquare(LEFT_UP).y + (int)(0.07*Bill[bi][bj].Height);
+				// rect.width = Bill[bi][bj].Width[boxCONTENT] - (int)(0.1*Bill[bi][bj].Height);
+				// rect.height = Bill[bi][bj].Height - (int)(0.2*Bill[bi][bj].Height);
+				// //billRects.push_back(rect);
+				// //r: row, c: col
+				// [> get the parameters of OCR<]
+				// sprintf(ImagePath, ".\\tempJpg\\r%dc%d.jpg  ", bi, bj);
+				// string strIP(ImagePath);				
+				// sprintf(TxtPath, ".\\tempTxt\\r%dc%d", bi, bj);
+				// string strTTP(TxtPath);
+				// strIP = strIP + strTTP;  //union
+				// string tempSP;// = "-l eng --tessdata-dir  .\\tesseract\\tessdata";
+				// // eng/chi_sim/chi_tra
+				// if (Bill[bi][bj].getCharacter() == ENG)
+				// {
+					// tempSP = " -l eng --tessdata-dir  .\\tesseract\\tessdata";
+				// }
+				// else if (Bill[bi][bj].getCharacter() == CHI_SIM)
+				// {
+					// tempSP = " -l chi_sim --tessdata-dir  .\\tesseract\\tessdata";
+				// }
+				// else if (Bill[bi][bj].getCharacter() == CHI_TRA)
+				// {
+					// tempSP = " -l chi_tra --tessdata-dir  .\\tesseract\\tessdata";
+				// }
+				// else if (Bill[bi][bj].getCharacter() == ENG_CHI_SIM)
+				// {
+					// tempSP = " -l eng+chi_sim --tessdata-dir  .\\tesseract\\tessdata";
+				// }				
+				// string strTP = strIP + tempSP;//txt path
 				
-				//".\\tempJpg\\r%dc%d.jpg .\\tempTxt\\r%dc%d.txt 
-				//-l chi_sim+eng+chi_tra --tessdata-dir  .\\tesseract\\tessdata "
-				strcpy(TessParam, strTP.c_str());//copy to char*, used for "ShellExecuteA"
-				tempImage = image(rect);  // cut the squares
-				cv::imwrite(ImagePath, tempImage); //save the squares
+				// //".\\tempJpg\\r%dc%d.jpg .\\tempTxt\\r%dc%d.txt 
+				// //-l chi_sim+eng+chi_tra --tessdata-dir  .\\tesseract\\tessdata "
+				// strcpy(TessParam, strTP.c_str());//copy to char*, used for "ShellExecuteA"
+				// tempImage = image(rect);  // cut the squares
+				// cv::imwrite(ImagePath, tempImage); //save the squares
 
-				/* start tesseract.exe untill it ends */
+				// [> start tesseract.exe untill it ends <]
 				// wchar_t* wString = new wchar_t[100];
 				// MultiByteToWideChar(CP_ACP, 0, ".\\tesseract\\tesseract.exe", -1, wString, 100);
 				// wchar_t* wTessPara = new wchar_t[300];
@@ -711,33 +714,33 @@ void RecognizeContent(const cv::Mat& image, vector<vector<Sheet>>& Bill)
 				// ShellExecuteEx(&ShExecInfo);
 				// WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 
-				//HINSTANCE hNewE = ShellExecuteA(NULL, "open", ".\\tesseract\\tesseract.exe", 
-					//TessParam,NULL,SW_HIDE);
+				// //HINSTANCE hNewE = ShellExecuteA(NULL, "open", ".\\tesseract\\tesseract.exe", 
+					// //TessParam,NULL,SW_HIDE);
 	
-				//cvWaitKey(500);
-				//get the txt path
-				string postfix = ".txt";
-				strTTP += postfix;
-				strcpy(TxtPath, strTTP.c_str());
-				TxtFile = readFile(TxtPath);
-				//outflag++;
-				cout << Bill[bi][bj].getItem()<<":" <<endl;
-				//cvWaitKey(500);
-				wcout.imbue(locale("chs"));
-				wcout << TxtFile << "\n"<<endl;
-				//cvWaitKey(1000);
-				//printf("r%dc%d\n", bi, bj);
+				// //cvWaitKey(500);
+				// //get the txt path
+				// string postfix = ".txt";
+				// strTTP += postfix;
+				// strcpy(TxtPath, strTTP.c_str());
+				// TxtFile = readFile(TxtPath);
+				// //outflag++;
+				// cout << Bill[bi][bj].getItem()<<":" <<endl;
+				// //cvWaitKey(500);
+				// wcout.imbue(locale("chs"));
+				// wcout << TxtFile << "\n"<<endl;
+				// //cvWaitKey(1000);
+				// //printf("r%dc%d\n", bi, bj);
 				
 
- 				
-			}
+                 
+			// }
 
-		}
+		// }
 
-	}
+	// }
 
 
-}
+// }
 
 
 
@@ -759,8 +762,8 @@ void boxMatch(vector<vector<Sheet>>& Bill, vector<Position>& SortSquare)
 		bSquare.push_back((*ptBeg).getSquare());
 	}
 
-	// match the squares, if some squares are matched, 
-	//save them as "*.jpg", and delete them 
+	 match the squares, if some squares are matched, 
+	save them as "*.jpg", and delete them 
 	int numRow = (int)Bill.size()-1, numCol;//the last one will be dealt alone
 	//vector<vector<cv::Point>>::iterator sqBeg, sqEnd,sqTemp;  //the iterator of square
 	double dx, dy,tempDis, 

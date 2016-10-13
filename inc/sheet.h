@@ -31,7 +31,7 @@
 class Sheet
 {
 private:
-	string item;  //the head of the content
+    std::string item;  //the head of the content
 	string content;  //the content need to be recogonised
 	int row, col;   // the position in the image
 	double height, width[3];// the height and width compared to the biggest box
@@ -61,7 +61,7 @@ public:
 		//itemSquare.push_back(cv::Point(-1, -1));
 	}
 
-	void setSheet(string sItem, string sCont, int srow, int scol, int sch)
+	void setSheet(std::string &sItem, string &sCont, int &srow, int &scol, int sch)
 	{
 		item = sItem;
 		content = sCont;
@@ -233,6 +233,6 @@ and put them into "tesseract.exe" to be recognised
 Bill: the bill correspond to the input image
 image: the image which has been done perspective transform
 */
-void RecognizeContent(const cv::Mat& image, vector<vector<Sheet>>& Bill);
+// void RecognizeContent(const cv::Mat& image, vector<vector<Sheet>>& Bill);
 //Read Unicode UTF-8 file into wstring
 std::wstring readFile(const char* filename);

@@ -7,6 +7,9 @@
 
 #include <iostream>
 #include <string>
+#include <ios>
+#include <fstream>
+#include <codecvt>
 
 #include "sheet.h"
 #include "Squares.h"
@@ -15,7 +18,7 @@
 using namespace cv;
 
 void findRect(Mat &src,Mat &perspImage,std::vector<std::vector<Sheet> > &bill);
-void idChar(Mat src,std::vector<std::vector<Sheet> > &bill);
+void idChar(Mat src,std::vector<std::vector<Sheet> > &bill,std::string &filename);
 int main()
 {
     std::string str ="./img/4.jpg";
@@ -23,29 +26,34 @@ int main()
     Mat img = cv::imread(filename,1);
     if(img.empty())
     {
-	    std::cout<<"Countn't load img"<<std::endl;
+	    std::cout<<"Can't load img"<<std::endl;
 	    return -1;
     }
     Mat perspImage;
-    std::vector<cv::Rect> rectBill;
     vector<vector<Sheet> > bill= creatSheet(); 
 
     findRect(img,perspImage,bill);
     MyImageShow(perspImage);
-    idChar(perspImage,bill);
+    idChar(perspImage,bill,str);
 
 
     // pixDestroy(&image);
     // imshow(str,img);
-    waitKey(0);
+    // waitKey(0);
 
 
     return 0;
 
 }
 
-void idChar(Mat src,std::vector<std::vector<Sheet> > &bill){
+void idChar(Mat src,std::vector<std::vector<Sheet> > &bill,std::string &filename){
     char *outText;
+    std::ofstream f;
+    std::string fName = filename.substr(0,filename.rfind('.'))+".txt";
+    f.open(fName,std::ofstream::out| std::ofstream::trunc);
+    std::string utf8=u8"字符识别程序样例\n";
+    // f<<utf8;
+    cout<<utf8;
 
     tesseract::TessBaseAPI *apiEngAndSim = new tesseract::TessBaseAPI();
     tesseract::TessBaseAPI *apiTra = new tesseract::TessBaseAPI();
@@ -79,13 +87,12 @@ void idChar(Mat src,std::vector<std::vector<Sheet> > &bill){
 
     int rectWid, rectHei;
     cv::Rect rect;
-    int cnt = 0;
     for(auto bi:bill)
     {
 	    for(auto b:bi)
 	    {
                 if(b.Empty()) continue;
-		std::cout<<"box "<<cnt++<<": "<<std::endl;
+		std::cout<<b.getItem()<<": "<<std::endl;
        		rectWid = b.getContSquare()[2].x - b.getContSquare()[1].x;
 		rectHei = b.getContSquare()[1].y - b.getContSquare()[0].y;
 		rect = cv::Rect(b.getContSquare()[0].x, 
@@ -96,28 +103,28 @@ void idChar(Mat src,std::vector<std::vector<Sheet> > &bill){
 						,rect.width,rect.height);
         			outText = apiEng->GetUTF8Text();
 				// std::cout<<b.getItem()<<std::endl;
-				std::cout<<outText<<std::endl;
+				// std::cout<<outText<<std::endl;
 			break;
 			case ENG_CHI_SIM:
     				apiEngAndSim->SetRectangle(rect.tl().x,rect.tl().y
 						,rect.width,rect.height);
         			outText = apiEngAndSim->GetUTF8Text();
 				// std::cout<<b.getItem()<<std::endl;
-				std::cout<<outText<<std::endl;
+				// std::cout<<outText<<std::endl;
 			break;
 			case CHI_SIM:
     				apiSim->SetRectangle(rect.tl().x,rect.tl().y
 						,rect.width,rect.height);
         			outText = apiSim->GetUTF8Text();
 				// std::cout<<b.getItem()<<std::endl;
-				std::cout<<outText<<std::endl;
+				// std::cout<<outText<<std::endl;
 			break;
 			case CHI_TRA:
     				apiTra->SetRectangle(rect.tl().x,rect.tl().y
 						,rect.width,rect.height);
         			outText = apiTra->GetUTF8Text();
 				// std::cout<<b.getItem()<<std::endl;
-				std::cout<<outText<<std::endl;
+				// std::cout<<outText<<std::endl;
 			break;
 			default:
 				cout<<"cannot find appropriate charactor"<<std::endl;
@@ -125,9 +132,13 @@ void idChar(Mat src,std::vector<std::vector<Sheet> > &bill){
 		}
 
                 // printf("OCR output:\n%s", outText);
+             std::cout<<outText<<std::endl;
+             f<<b.getItem()<<endl;
+             f<<outText;
 	    }
 
     }
+    f.close();
     // cv::Rect rect = rectBill[0];
 
     // api->SetRectangle(0,0,640,190);
