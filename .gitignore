@@ -1,7 +1,9 @@
 # resourses
 img/*
+resources/*
 ocr
 *.swp
+*.swo
 
 # Prerequisites
 

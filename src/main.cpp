@@ -11,30 +11,55 @@
 #include <fstream>
 #include <codecvt>
 
+#include <experimental/filesystem>
+#include <mutex>
+#include <thread>
+
 #include "sheet.h"
 #include "Squares.h"
+#include "blockingQueue.h"
 
 
 using namespace cv;
+using namespace std;
+namespace fs=std::experimental::filesystem;
 
+#define nr_threads 10
+BlockingQueue<string> bQ;
+
+vector<vector<Sheet> > bill; 
+int readFileName(std::string &path);
 void findRect(Mat &src,Mat &perspImage,std::vector<std::vector<Sheet> > &bill);
 void idChar(Mat src,std::vector<std::vector<Sheet> > &bill,std::string &filename);
+// void workBuffer(vector<vector<Sheet> > bill,int tid);
+void workBuffer(int tid);
+
 int main()
 {
-    std::string str ="./img/4.jpg";
-    const char* filename = str.c_str();
-    Mat img = cv::imread(filename,1);
-    if(img.empty())
-    {
-	    std::cout<<"Can't load img"<<std::endl;
-	    return -1;
+    std::string path="./img"; 
+    if(readFileName(path)){
+        std::cout<<"cannot read file"<<endl;
+        return -1;
     }
-    Mat perspImage;
-    vector<vector<Sheet> > bill= creatSheet(); 
+    // std::string str ="./img/4.jpg";
+    // const char* filename = str.c_str();
+    // Mat img = cv::imread(filename,1);
+    // if(img.empty())
+    // {
+		// std::cout<<"Can't load img"<<std::endl;
+		// return -1;
+    // }
+    bill= creatSheet();
+    vector<thread> th;
+    for(int i=0;i<nr_threads;i++)
+        th.push_back(std::thread(workBuffer,i));
 
-    findRect(img,perspImage,bill);
-    MyImageShow(perspImage);
-    idChar(perspImage,bill,str);
+
+    for(auto &t : th)
+        t.join();
+    // findRect(img,perspImage,bill);
+    // // MyImageShow(perspImage);
+    // idChar(perspImage,bill,str);
 
 
     // pixDestroy(&image);
@@ -44,6 +69,39 @@ int main()
 
     return 0;
 
+}
+
+// void workBuffer(vector<vector<Sheet> > bill,int tid){
+void workBuffer(int tid){
+    Mat src;
+    Mat perspImage;
+    std::string fName;
+
+    while(bQ.size()){
+        if(!bQ.tryPop(fName,std::chrono::milliseconds(10))) continue;
+        else{
+            cout<<"capture by tid "<<tid<<": "<<fName<<endl;
+            src=imread(fName,1);
+            if(src.empty()){
+                cout<<fName<<" is not a img"<<endl;
+                continue;
+            }
+            findRect(src,perspImage,bill);
+             // MyImageShow(perspImage);
+            idChar(perspImage,bill,fName);
+        }
+    }
+
+}
+
+int readFileName(std::string &path){
+    if(fs::path(path).empty()){
+        std::cout<<"the folder is empty"<<endl;
+        return -1;
+    }
+    for(auto& dirEntry : fs::recursive_directory_iterator(path))
+        bQ.push(dirEntry.path().string());
+    return 0;
 }
 
 void idChar(Mat src,std::vector<std::vector<Sheet> > &bill,std::string &filename){
