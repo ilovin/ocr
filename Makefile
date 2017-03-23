@@ -16,7 +16,7 @@ RCOMPILE_FLAGS = -D NDEBUG
 # Additional debug-specific flags
 DCOMPILE_FLAGS = -D DEBUG
 # Add additional include paths
-INCLUDES = -I ./inc
+INCLUDES = -I ./include
 # General linker settings
 LINK_FLAGS = -lstdc++fs -pthread -llept -ltesseract `pkg-config --cflags --libs opencv` 
 # Additional release-specific linker settings

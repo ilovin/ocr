@@ -1,4 +1,4 @@
-// The "Square Detector" program.
+﻿// The "Square Detector" program.
 // It loads several images sequentially and tries to find squares in
 // each image
 
@@ -22,7 +22,7 @@
 //using namespace cv;
 //using namespace std;
 
-int thresh = 200, N = 11;
+int thresh = 200, N = 12;
 const char* wndname = "Bill Detection Demo";
 
 double angle(cv::Point pt1, cv::Point pt2, cv::Point pt0)
@@ -46,8 +46,9 @@ void findSquares(const cv::Mat& image, vector<vector<cv::Point> >& squares)
 
 
 											   // down-scale and upscale the image to filter out the noise
-	pyrDown(image, pyr, cv::Size(image.cols / 2, image.rows / 2));
-	pyrUp(pyr, timg, image.size());
+	//pyrDown(image, pyr, cv::Size(image.cols / 2, image.rows / 2));
+	//pyrUp(pyr, timg, image.size());
+	GaussianBlur(image, timg, cv::Size(5, 5), 2);
 
 
 	vector<vector<cv::Point> > contours;
@@ -75,8 +76,7 @@ void findSquares(const cv::Mat& image, vector<vector<cv::Point> >& squares)
 				// dilate canny output to remove potential
 				// holes between edge segments
 				dilate(gray, gray, cv::Mat(), cv::Point(-1, -1));
-				//imshow("dilate", gray);
-				//waitKey();
+
 
 			}
 			else
@@ -85,6 +85,9 @@ void findSquares(const cv::Mat& image, vector<vector<cv::Point> >& squares)
 				//     tgray(x,y) = gray(x,y) < (th+1)*255/N ? 255 : 0
 				gray = gray0 >= (th + 1) * 255 / N;
 			}
+
+			/*MyBinShow("dilate", gray);
+			waitKey();*/
 
 			// find contours and store them all as a list
 			findContours(gray, contours, cv::RETR_LIST, cv::CHAIN_APPROX_SIMPLE);
@@ -96,7 +99,6 @@ void findSquares(const cv::Mat& image, vector<vector<cv::Point> >& squares)
 			{
 				// approximate contour with accuracy proportional
 				// to the contour perimeter
-				//²ÎÊýÎª£ºÊäÈëÍ¼ÏñµÄ2Î¬µã¼¯£¬Êä³ö½á¹û£¬¹À¼Æ¾«¶È£¬ÊÇ·ñ±ÕºÏ
 				// Mat(contours[i]): contours[i].size()  *  1 µÄ¾ØÕó
 				approxPolyDP(cv::Mat(contours[i]), approx, cv::arcLength(cv::Mat(contours[i]), true)*0.02, true);
 				cv::Mat ttt = cv::Mat(contours[i]);
@@ -106,9 +108,9 @@ void findSquares(const cv::Mat& image, vector<vector<cv::Point> >& squares)
 				// Note: absolute value of an area is used because
 				// area may be positive or negative - in accordance with the
 				// contour orientation
-				if (approx.size() == 4 &&
-					fabs(cv::contourArea(cv::Mat(approx))) > minArea &&
-					cv::isContourConvex(cv::Mat(approx)))
+				if ( (approx.size() == 4) && 
+					(fabs(cv::contourArea(cv::Mat(approx))) > minArea) &&
+					(cv::isContourConvex(cv::Mat(approx))) )
 				{
 					double maxCosine = 0;
 
@@ -140,138 +142,9 @@ void drawSquares(cv::Mat& image, const vector<vector<cv::Point> >& squares)
 		int n = (int)squares[i].size();
 		polylines(image, &p, &n, 1, true, cv::Scalar(0, 255, 0), 3, cv::LINE_AA);
 	}
-
-	if (image.rows > 3000)
-	{
-		// down sample
-		cv::Mat downBin;
-		cv::resize(image, downBin, cv::Size(), 0.35, 0.35, CV_INTER_LINEAR);
-		imshow(wndname, downBin);
-	}
-	else
-	{
-		imshow(wndname, image);
-	}
+	MyImgShow(wndname, image);
 
 
 }
 
-int test()  //(int /*argc*/, char** /*argv*/)
-{
-	static const char* names[] = {"../img/2.jpg","../img/4.jpg",0 }; //"jie.jpg", "1.jpg","3.jpg",
-	//help();
-	//cv::namedWindow(wndname, 1);
-	vector<vector<cv::Point> > squares,squares2;
-	vector<vector<Sheet>> bill= creatSheet(); 
 
-	//locale::global(locale("chs"));
-	//wcout.imbue(locale("chs")); 
-
-	//myfile.close();
-
-	for (int i = 0; names[i] != 0; i++)
-	{
-		cv::Mat image = cv::imread(names[i], 1);
-		if (image.empty())
-		{
-			cout << "Couldn't load " << names[i] << endl;
-			continue;
-		}
-
-		/*Mat temImage;
-		GaussianBlur(image, image, Size(9, 9), 1.5);
-		cvtColor(image, temImage, CV_BGR2GRAY);
-		equalizeHist(temImage, temImage);
-		cvtColor(temImage, image, CV_GRAY2RGB);*/
-
-		MyImageShow(image);
-		cv::Mat GausImage;
-		GaussianBlur(image, GausImage, cv::Size(9, 9), 2);
-
-		
-		//MyImageShow(image);
-		//waitKey();
-		//int kp = image.channels();
-		//find squares
-		findSquares(GausImage, squares);
-
-		vector<Position> pos;
-		pos = SortByArea(squares);
-		cv::Mat perspImage = image.clone();
-		//do perspective transform
-		ExtractBill(image, perspImage, pos);
-		
-
-		//double angle = FindAngle(image, pos);
-		//cv::Mat adImage = AdjustImage(image, pos);
-		//cv::Mat billImg = adImage;
-
-
-		//vector<cv::Point> box = pos[0].getSquare();
-		vector<cv::Point> box = {cv::Point(0,0), cv::Point(0,perspImage.rows ),
-			cv::Point(perspImage.cols ,perspImage.rows ), cv::Point(perspImage.cols,0) };//anticlockwise
-
-		//vector<vector<cv::Point> > squareBill;
-		vector<cv::Rect> rectBill; //rectangle of opencv
-		cv::Rect rect;
-		bill.clear();
-		bill = creatSheet();//the original bill
-		SheetImage(bill, box); //the bill correspond to the input image
-		// get every square
-		/*squareBill.clear();
-		for (int bi = 0; bi < (int)bill.size()-1; bi++)
-			for (int bj = 0; bj < (int)bill[bi].size(); bj++)
-			{
-				squareBill.push_back(bill[bi][bj].getItemSquare());
-				squareBill.push_back(bill[bi][bj].getContSquare());
-			}*/
-
-		//get rectangle of content
-		rectBill.clear();
-		int rectWid, rectHei;
-		for (int bi = 0; bi < (int)bill.size() - 1; bi++)
-			for (int bj = 0; bj < (int)bill[bi].size(); bj++)
-			{
-				rectWid = bill[bi][bj].getContSquare()[2].x - bill[bi][bj].getContSquare()[1].x;
-				rectHei = bill[bi][bj].getContSquare()[1].y - bill[bi][bj].getContSquare()[0].y;
-				rect = cv::Rect(bill[bi][bj].getContSquare()[0].x, bill[bi][bj].getContSquare()[0].y,rectWid,rectHei);
-				rectBill.push_back(rect);
-			}
-
-		//run tesseract.exe
-		//RecognizeContent(perspImage, bill);
-
-
-		//TxtFile = readFile();
-		//MyImageShow( image);
-		//drawSquares(adImage, squareBill);
-	  // drawSquares(perspImage, squareBill);
-		//imshow("dst", dstImage);
-		MyImageShow(perspImage);
-		//printf("Please press any key...\n");
-		//cin.get();
-		cvWaitKey();
-		
-		
-  		//MergeSquare(image, pos);
-		//double angle2 = FindAngle(image, pos);
-		//MyImageShow(image);
-		//waitKey();
-
-		/*int Nump = (int) pos.size();
-		squares2.clear();
-		for (int nk = 0; nk < Nump; nk++)  //Nump
-		{
-			squares2.push_back(pos[nk].getSquare());
-		}
-
-		drawSquares(image, squares2);*/
-		
-
-		//int c = cv::waitKey();
-		//if ((char)c == 27)
-			//break;
-	}
-
-	return 0;
-}
